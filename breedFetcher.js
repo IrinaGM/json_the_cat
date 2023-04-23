@@ -16,12 +16,10 @@ const getBreedInfo = new Promise((resolve, reject) => {
 
 const getDescription = (str) => {
   const catInfo = JSON.parse(str);
-
-  return console.log(catInfo[0].description);
+  if (!catInfo[0]) {
+    throw new Error("Data ia empty. Get your cats strait !!!");
+  }
+  console.log(catInfo[0].description);
 };
 
-getBreedInfo
-  .then((data) => getDescription(data))
-  .catch((err) => {
-    console.error("Error accured in fatching the data", err);
-  });
+module.exports = { getBreedInfo, getDescription };

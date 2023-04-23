@@ -8,14 +8,20 @@ const URL = catsBreedSearch + args[0];
 const getBreedInfo = new Promise((resolve, reject) => {
   request(URL, (error, response, body) => {
     if (error) {
-      reject();
+      reject(error);
     }
     resolve(body);
   });
 });
 
+const getDescription = (str) => {
+  const catInfo = JSON.parse(str);
+
+  return console.log(catInfo[0].description);
+};
+
 getBreedInfo
-  .then((data) => console.log(data))
+  .then((data) => getDescription(data))
   .catch((err) => {
     console.error("Error accured in fatching the data", err);
   });

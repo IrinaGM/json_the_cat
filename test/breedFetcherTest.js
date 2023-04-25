@@ -18,13 +18,13 @@ describe("fetchBreedInfo", () => {
   });
   it("returns an error string when invalid / non-existent breed is passed in, via callback", (done) => {
     fetchBreedInfo("", (err, desc) => {
-      // we expect no error for this scenario
-      assert.equal(err, null);
+      // expect that no data is returned
+      assert.equal(desc, null);
 
       const expectedDesc = "Data is empty. Get your cats strait !!!";
 
-      // compare returned description
-      assert.equal(expectedDesc, desc.trim());
+      // compare returned error
+      assert.equal(expectedDesc, err);
 
       done();
     });

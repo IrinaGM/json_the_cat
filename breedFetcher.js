@@ -9,7 +9,7 @@ const fetchBreedInfo = (breedName, callback) => {
     }
     const catInfo = JSON.parse(body);
     if (!catInfo[0]) {
-      return callback(null, "Data is empty. Get your cats strait !!!");
+      return callback("Data is empty. Get your cats strait !!!", null);
     }
 
     return callback(null, catInfo[0].description);

@@ -1,18 +1,15 @@
 const request = require("request");
 
-const args = process.argv.slice(2); // Retrieves the breed the user provided from the command line
-
 const catsBreedSearch = "https://api.thecatapi.com/v1/breeds/search?q=";
-const URL = catsBreedSearch + args[0];
 
-const getBreedInfo = new Promise((resolve, reject) => {
-  request(URL, (error, response, body) => {
+const fetchBreedInfo = (breedName, callback) => {
+  request(`${catsBreedSearch}${breedName}`, (error, response, body) => {
     if (error) {
-      reject(error);
+      return callback(error, null);
     }
-    resolve(body);
+    return callback(null, body);
   });
-});
+};
 
 const getDescription = (str) => {
   const catInfo = JSON.parse(str);
@@ -22,4 +19,4 @@ const getDescription = (str) => {
   console.log(catInfo[0].description);
 };
 
-module.exports = { getBreedInfo, getDescription };
+module.exports = { fetchBreedInfo, getDescription };

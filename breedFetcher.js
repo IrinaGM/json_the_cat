@@ -7,16 +7,13 @@ const fetchBreedInfo = (breedName, callback) => {
     if (error) {
       return callback(error, null);
     }
-    return callback(null, body);
+    const catInfo = JSON.parse(body);
+    if (!catInfo[0]) {
+      return callback(null, "Data is empty. Get your cats strait !!!");
+    }
+
+    return callback(null, catInfo[0].description);
   });
 };
 
-const getDescription = (str) => {
-  const catInfo = JSON.parse(str);
-  if (!catInfo[0]) {
-    throw new Error("Data ia empty. Get your cats strait !!!");
-  }
-  console.log(catInfo[0].description);
-};
-
-module.exports = { fetchBreedInfo, getDescription };
+module.exports = { fetchBreedInfo };
